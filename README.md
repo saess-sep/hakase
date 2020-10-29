@@ -5,6 +5,7 @@ Cycle System Based Time Management Tool for *nix Systems
 * clone repo
 * run hakase-helper
 * edit the config in the script in your ~/hakase folder
+* add alias for hakase to .*shrc file
 
 #commands
 * hakase = opens working file (~/hakase/working.hake) in editor
@@ -19,6 +20,5 @@ Cycle System Based Time Management Tool for *nix Systems
 
 #goals
 * add hakase rank to order todo lists
-* switch from if to case
-* make hakase-helper put scripts into /opt/hakase instead of home directory
+* make hakase-helper do path stuff
 * break out config into file
