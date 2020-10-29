@@ -1,0 +1,9 @@
+#!/bin/bash
+#this makes stuff for hakase
+mkdir ~/hakase/
+mkdir ~/hakase/days
+mkdir ~/hakase/working.hake
+cp template.hake ~/hakase/template.hake
+cp hakase ~/hakase/hakase
+chmod +x ~/hakase/hakase
+echo "DONE"

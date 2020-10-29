@@ -1,0 +1,74 @@
+#!/bin/bash
+#hakase v0.0
+#by sam ess
+#woodie guthrie license with no bulli clause
+
+#config
+
+editor="nano"
+editorSettings=" -IimlJ 33"
+location="/Users/same/hakase"
+archive="$location/days"
+working="$location/working.hake"
+template="$location/template.hake"
+dateFormat=`date +%d%b%y`
+
+#code
+#make all the args lowercase (no clue how to do this)
+#1=`tr '[:upper:]' '[:lower:]' < $1 > $1`
+#echo $2 | tr '[:upper:]' '[:lower:]'
+#echo $3 | tr '[:upper:]' '[:lower:]'
+#echo $4 | tr '[:upper:]' '[:lower:]'
+#echo $5 | tr '[:upper:]' '[:lower:]'
+
+#read inputs and do things
+if [ -z $1 ]
+then
+	#if no argument 1, then load the working file in editor with settings 
+	$editor $editorSettings $working
+	#old hardcode values
+	#nano -IimlJ 33 ~/hakase/working.hake
+elif [ $1 = copy ]
+then
+	#if arg1 is copy, then check for arg2
+	if [ -z $2 ]
+	then
+		#if arg2 is blank, do a default archive (filename is current date.hake)
+		cp $working $archive/$dateFormat.hake
+		echo "Current log archived as $dateFormat"
+	else
+		#if there is an arg, use that as the filename .hake
+		cp $working $archive/$2.hake
+		echo "Current log archived as $2"
+	fi
+elif [ $1 = fresh ]
+then
+	#if arg1 is fresh, load the template over the working doc
+	cp $template $working
+	echo "Loading '$template' over '$working'"
+elif [ $1 = load ]
+then
+	#if arg1 is load, check for arg2
+	if [ -z $2 ]
+	then
+		#if no arg2, give error
+		echo "Sorry, you need to have a file to load listed"
+	elif [ -e $archive/$2 ]
+	then
+		#if arg2 is a valid file without extension, then copy to working
+		#copy $archive/$2 $working
+		echo "Loading '$archive/$2' over '$working'"
+		elif [ -e $archive/$2.hake ]
+	then
+		#if arg2 is a valid file with added .hake extension, then copy to working
+		#copy $archive/$2 $working
+		echo "Loading '$archive/$2' over '$working'"
+	else
+		#catchall for nonsense
+		echo "Sorry, I couldn't find $archive/$2"
+	fi
+else
+	#catchall for nonsense
+	echo "I'm sorry, I couldn't understand what to do"
+fi
+
