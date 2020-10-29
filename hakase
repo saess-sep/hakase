@@ -7,7 +7,7 @@
 
 editor="nano"
 editorSettings=" -IimlJ 33"
-location="/Users/same/hakase"
+location="/Users/$USER/hakase"
 archive="$location/days"
 working="$location/working.hake"
 template="$location/template.hake"
