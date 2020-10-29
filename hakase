@@ -30,8 +30,6 @@ fourth=$( echo $4 | tr '[:upper:]' '[:lower:]' )
 fifth=$( echo $5 | tr '[:upper:]' '[:lower:]' )
 
 #read inputs and do things
-#ugh gotta rewrite this to use case
-#thanks, stackexchange
 if [ -z $first ]
 then
 	#if no argument 1, then load the working file in editor with settings 
