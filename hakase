@@ -23,6 +23,7 @@ dateFormat=`date +%d%b%y`
 first=$( echo $1 | tr '[:upper:]' '[:lower:]' )
 #oops 2 needs to be case sensitive
 #second=$( echo $2 | tr '[:upper:]' '[:lower:]' )
+second=$2
 #theoretically there are no other args, but copy and paste are fun to use
 third=$( echo $3 | tr '[:upper:]' '[:lower:]' )
 fourth=$( echo $4 | tr '[:upper:]' '[:lower:]' )
@@ -46,26 +47,25 @@ then
 			;;
 		load)
 			if [ -z $second ]
-				then
-					#if no arg2, give error
-					echo "Sorry, you need to have a file to load listed"
-					return 1
-				elif [ -e $archive/$second ]
-				then
-					#if arg2 is a valid file without extension, then copy to working
-					copy $archive/$second $working
-					echo "Loading '$archive/$second' over '$working'"
-				elif [ -e $archive/$second.hake ]
-				then
-					#if arg2 is a valid file if a .hake is added, then copy to working
-					copy $archive/$second $working
-					echo "Loading '$archive/$second.hake' over '$working'"
-				elif [ ! -e $archive/$second ]
-					#not a valid file
-					echo "Sorry, I couldn't find $archive/$second"
-				else
-					echo "Sorry, that didn't work and I don't know why"
-				fi
+			then
+				#if no arg2, give error
+				echo "Sorry, you need to have a file to load listed"
+			elif [ -e $archive/$second ]
+			then
+				#if arg2 is a valid file without extension, then copy to working
+				cp $archive/$second $working
+				echo "Loading '$archive/$second' over '$working'"
+			elif [ -e $archive/$second.hake ]
+			then
+				#if arg2 is a valid file if a .hake is added, then copy to working
+				cp $archive/$second.hake $working
+				echo "Loading '$archive/$second.hake' over '$working'"
+			elif [ ! -e $archive/$second ]
+			then
+				#not a valid file
+				echo "Sorry, I couldn't find $archive/$second"
+			else
+				echo "Sorry, that didn't work and I don't know why"
 			fi
 			;;
 		copy)
