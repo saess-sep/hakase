@@ -1,32 +1,44 @@
 #!/bin/bash
-#this makes stuff for hakase
+#hakase-helper
+#hakase installer script
 
 #config
-folder=$HOME/hakase
+directory=$HOME/hakase
 #install=/usr/local/bin/hakase
-install=$folder/hakase
-#if there's no hakase home folder, make it and days and a working file
-if [ ! -d $folder ]
+install=$directory/hakase
+#if there's no hakase home directory, make it and days and a working file
+if [ ! -d $directory ]
 then
-	mkdir $folder
-	mkdir $folder/days
-	touch $folder/working.hake
+	echo "making hakase directory"
+	mkdir $directory
+	mkdir $directory/days
+	cp template.hake $directory/working.hake
 fi
 
 #copy most current template
-cp template.hake $folder/template.hake
-
-#if there's no hakase folder, make it
-if [ ! -d $install ]
-then
-	mkdir $install
-fi
+echo "copying most current template"
+cp template.hake $directory/template.hake
 
 #copy most current hakase and make it executable
+echo "copying most current version of hakase"
 cp hakase $install
 chmod +x $install
 
-#add to path
-#PATH=$install:$PATH
-#export PATH
+#add hakase to zshrc or bashrc
+if [ -z $HOME/.hakasewashere ]
+then
+	if [ -e $HOME/.zshrc ]
+	then
+		echo "hakase=\"$directory/hakase\"" >> $HOME/.zshrc
+		touch $HOME/.hakasewashere
+		echo "adding hakase to zshrc"
+	elif [ -e $HOME/.bashrc ]
+	then
+		echo "hakase=\"$directory/hakase\"" >> $HOME/.zshrc
+		touch $HOME/.hakasewashere
+		echo "adding hakase to bashrc"
+	fi
+else
+	echo "already added to config"
+fi
 echo "DONE"
