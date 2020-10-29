@@ -1,9 +1,32 @@
 #!/bin/bash
 #this makes stuff for hakase
-mkdir ~/hakase/
-mkdir ~/hakase/days
-mkdir ~/hakase/working.hake
-cp template.hake ~/hakase/template.hake
-cp hakase ~/hakase/hakase
-chmod +x ~/hakase/hakase
+
+#config
+folder=$HOME/hakase
+#install=/usr/local/bin/hakase
+install=$folder/hakase
+#if there's no hakase home folder, make it and days and a working file
+if [ ! -d $folder ]
+then
+	mkdir $folder
+	mkdir $folder/days
+	touch $folder/working.hake
+fi
+
+#copy most current template
+cp template.hake $folder/template.hake
+
+#if there's no hakase folder, make it
+if [ ! -d $install ]
+then
+	mkdir $install
+fi
+
+#copy most current hakase and make it executable
+cp hakase $install
+chmod +x $install
+
+#add to path
+#PATH=$install:$PATH
+#export PATH
 echo "DONE"
