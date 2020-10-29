@@ -1,0 +1,50 @@
+""
+    open working in editor with settings
+copy
+    ""
+        copy working to archive with name date
+    word
+        check word
+        goodword
+            copy working to archive with name word
+        badword
+            error - file not found
+fresh
+    ""
+        copy working to archive with name save
+        read working to temp file
+        trim temp file to only todo list
+        check for ! or ~
+        trim ! or ~ items
+        copy template to working
+        copy temp into todo list
+    nocarry
+        copy working to archive with name save
+        copy template to archive
+load
+    check for word
+    ""
+        error - please supply a file
+    check for path to word
+    goodword
+        copy archive with name word to working
+    badword
+        error - file not found
+rank
+    ""
+        copy working to temp file
+        trim temp to only todo list
+        ignore status
+        sort lines numerical descending
+        unignore status
+        copy temp into working
+    name
+        goodname
+            copy name file to temp file
+            trim temp to only todo list
+            ignore status
+            sort lines numerical descending
+            unignore status
+            copy temp into name file
+        badname
+            error

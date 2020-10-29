@@ -1,87 +1,83 @@
 #!/bin/bash
-#hakase v0.1
-#sam ess
+#hakase v0.2
 
 #config
-#no clue if things besides nano will work with this general format
-#rather die than use vim to test
 editor="nano"
 editorSettings=" -IimlJ 33"
-#locations for stuff
-#days is the morally correct option but it can be changed to whatever
 location="$HOME/hakase"
 archive="$location/days"
-#i am aware it is hakAse and not hakEse
-#bioware stole .hak
 working="$location/working.hake"
 template="$location/template.hake"
-#this is morally correct and if you change it you are a bad person
+save="$archive/save.hake"
 dateFormat=`date +%d%b%y`
 
 #code
-#make all the args lowercase (probably wrong, but it works)
 first=$( echo $1 | tr '[:upper:]' '[:lower:]' )
-#oops 2 needs to be case sensitive
-#second=$( echo $2 | tr '[:upper:]' '[:lower:]' )
 second=$2
-#theoretically there are no other args, but copy and paste are fun to use
-third=$( echo $3 | tr '[:upper:]' '[:lower:]' )
-fourth=$( echo $4 | tr '[:upper:]' '[:lower:]' )
-fifth=$( echo $5 | tr '[:upper:]' '[:lower:]' )
 
-#read inputs and do things
-if [ -z $first ]
-then
-	#if no argument 1, then load the working file in editor with settings 
-	$editor $editorSettings $working
-	#old hardcode values
-	#nano -IimlJ 33 ~/hakase/working.hake
-elif [ ! -z $first ]
-then
-	case $first in
-		fresh)
-			cp $template $working
-			echo "Loading '$template' over '$working'"
-			;;
-		load)
-			if [ -z $second ]
-			then
-				#if no arg2, give error
-				echo "Sorry, you need to have a file to load listed"
-			elif [ -e $archive/$second ]
-			then
-				#if arg2 is a valid file without extension, then copy to working
-				cp $archive/$second $working
-				echo "Loading '$archive/$second' over '$working'"
-			elif [ -e $archive/$second.hake ]
-			then
-				#if arg2 is a valid file if a .hake is added, then copy to working
-				cp $archive/$second.hake $working
-				echo "Loading '$archive/$second.hake' over '$working'"
-			elif [ ! -e $archive/$second ]
-			then
-				#not a valid file
-				echo "Sorry, I couldn't find $archive/$second"
-			else
-				echo "Sorry, that didn't work and I don't know why"
-			fi
-			;;
-		copy)
-			#if arg1 is copy, then check for arg2
-			if [ -z $second ]
-			then
-				#if arg2 is blank, do a default archive (filename is current date.hake)
-				cp $working $archive/$dateFormat.hake
-				echo "Current log archived as $dateFormat"
-			else
-				#if there is an arg, use that as the filename .hake
-				cp $working $archive/$second.hake
-				echo "Current log archived as $second"
-			fi
-			;;
-	esac
-else
-	#catchall for nonsense
-	echo "I'm sorry, I couldn't understand what to do"
-fi
+case $first in
+	"")
+		$editor $editorSettings $working
+		;;
+	copy)
+		case $second in
+			"")
+				cp $working $archive/$dateFormat.hake && echo "Current log archived as $dateFormat"
+				;;
+			*)
+				cp $working $archive/$second.hake && echo "Current log archived as $second"
+				;;
+		esac
+		;;
+	fresh)
+		second=$( echo $second | tr '[:upper:]' '[:lower:]' )
+		case $second in
+			"")
+				#still working on carryover
+				cp $working $save
+				cp $template $working && echo "Loading '$template' over '$working'"
+				;;			
+			nocarry)
+				cp $working $save
+				cp $template $working && echo "Loading '$template' over '$working'"
+				;;
+			*)
+				echo "Sorry, fresh doesn't have that verb available"
+				;;
+		esac
+		;;
+	load)
+		case $second in
+			"")
+				echo "Sorry, you need to list the file you'd like to load"
+				;;
+			*)
+				if [ -e $archive/$second ]
+				then
+					cp $archive/$second $working && echo "Loading '$archive/$second' over '$working'"
+				elif [ -e $archive/$second.hake ]
+				then
+					cp $archive/$second.hake $working && echo "Loading '$archive/$second' over '$working'"
+				elif [ -e $second ]
+				then
+					cp $second $working && echo "Loading '$second' over '$working'"
+				elif [ -e $second.hake ]
+				then
+					cp $second.hake $working && echo "Loading '$second.hake' over '$working'"	
+				elif [ ! -e $second ]
+				then
+					echo "Sorry, I couldn't find $second, $second.hake, $archive/$second, or $archive/$second.hake"
+				else
+					echo "Sorry, that didn't work, and I don't know why"
+				fi
+				;;
+		esac
+		;;
+	rank)
+		echo "Sorry, rank isn't ready yet"
+		;;
+	*)
+		echo "Sorry, I don't know how to do that verb"
+		;;
+esac        
 
