@@ -29,12 +29,12 @@ if [ -z $HOME/.hakasewashere ]
 then
 	if [ -e $HOME/.zshrc ]
 	then
-		echo "hakase=\"$directory/hakase\"" >> $HOME/.zshrc
+		echo "alias hakase=\"$directory/hakase\"" >> $HOME/.zshrc
 		touch $HOME/.hakasewashere
 		echo "adding hakase to zshrc"
 	elif [ -e $HOME/.bashrc ]
 	then
-		echo "hakase=\"$directory/hakase\"" >> $HOME/.zshrc
+		echo "alias hakase=\"$directory/hakase\"" >> $HOME/.zshrc
 		touch $HOME/.hakasewashere
 		echo "adding hakase to bashrc"
 	fi
