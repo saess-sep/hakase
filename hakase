@@ -36,10 +36,12 @@ case $first in
 				#still working on carryover
 				cp $working $save
 				cp $template $working && echo "Loading '$template' over '$working'"
+				sed -i '' "1s/^/$dateFormat/" $working
 				;;			
 			nocarry)
 				cp $working $save
 				cp $template $working && echo "Loading '$template' over '$working'"
+				sed -i '' "1s/^/$dateFormat/" $working
 				;;
 			*)
 				echo "Sorry, fresh doesn't have that verb available"

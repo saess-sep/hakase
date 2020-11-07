@@ -18,9 +18,12 @@ fresh
         trim ! or ~ items
         copy template to working
         copy temp into todo list
+        add current date to line 1 of working
     nocarry
         copy working to archive with name save
-        copy template to archive
+        copy template to working
+        add current date to line 1 of working
+
 load
     check for word
     ""
