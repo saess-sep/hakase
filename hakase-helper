@@ -24,21 +24,22 @@ echo "copying most current version of hakase"
 cp hakase $install
 chmod +x $install
 
+#dangerous and weird and bad, commented out
 #add hakase to zshrc or bashrc
-if [ -z $HOME/.hakasewashere ]
-then
-	if [ -e $HOME/.zshrc ]
-	then
-		echo "alias hakase=\"$directory/hakase\"" >> $HOME/.zshrc
-		touch $HOME/.hakasewashere
-		echo "adding hakase to zshrc"
-	elif [ -e $HOME/.bashrc ]
-	then
-		echo "alias hakase=\"$directory/hakase\"" >> $HOME/.zshrc
-		touch $HOME/.hakasewashere
-		echo "adding hakase to bashrc"
-	fi
-else
-	echo "already added to config"
-fi
+#if [ -z $HOME/.hakasewashere ]
+#then
+#	if [ -e $HOME/.zshrc ]
+#	then
+#		echo "alias hakase=\"$directory/hakase\"" >> $HOME/.zshrc
+#		touch $HOME/.hakasewashere
+#		echo "adding hakase to zshrc"
+#	elif [ -e $HOME/.bashrc ]
+#	then
+#		echo "alias hakase=\"$directory/hakase\"" >> $HOME/.zshrc
+#		touch $HOME/.hakasewashere
+#		echo "adding hakase to bashrc"
+#	fi
+#else
+#	echo "already added to config"
+#fi
 echo "DONE"
