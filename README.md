@@ -23,7 +23,7 @@ Cycle System Based Time Management Tool for *nix Systems
 * `working` where your working file is stored and what it's named (default `$location/working.hake`)
 * `template` where your template file is stored and what it's named (default `$location/template.hake`)
 * `save` where your backup file is stored and what it's named (default `$archive/save.hake`)
-* `dateFormat` what format you'd like the files to be named with (default is POSIX date command using backticks, specifically     ``date +%y-%m-%d``)
+* `dateFormat` what format you'd like the files to be named with (default is POSIX date command using backticks, specifically     `` `date +%y-%m-%d` ``)
 
 # issues
 * hakase helper is fragile and dangerous
