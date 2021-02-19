@@ -2,8 +2,14 @@
 #hakase v0.3.0
 
 #config
-#source config from hakase.config, normally in the ~/hakase/ folder (as installed by helper)
-. $HOME/hakase/hakase.config
+config="$HOME/hakase/hakase.config"
+if [[ -f $config ]] ; then
+	#source config from hakase.config, normally in the ~/hakase/ folder (as installed by helper)
+	. $config
+else
+	echo "I couldn't find your config file, I was looking for $config"
+	exit 10
+fi
 
 #code
 first=$( echo $1 | tr '[:upper:]' '[:lower:]' )
