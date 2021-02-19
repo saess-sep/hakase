@@ -1,15 +1,9 @@
 #!/bin/bash
-#hakase v0.2
+#hakase v0.3.0
 
 #config
-editor="nano"
-editorSettings=" -IimlJ 33"
-location="$HOME/hakase"
-archive="$location/days"
-working="$location/working.hake"
-template="$location/template.hake"
-save="$archive/save.hake"
-dateFormat=`date +%d%b%y`
+#source config from hakase.config, normally in the ~/hakase/ folder (as installed by helper)
+. $HOME/hakase/hakase.config
 
 #code
 first=$( echo $1 | tr '[:upper:]' '[:lower:]' )

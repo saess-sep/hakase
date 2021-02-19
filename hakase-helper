@@ -3,9 +3,8 @@
 #hakase installer script
 
 #config
+#desired install location
 directory=$HOME/hakase
-#install=/usr/local/bin/hakase
-install=$directory/hakase
 #if there's no hakase home directory, make it and days and a working file
 if [ ! -d $directory ]
 then
@@ -21,8 +20,11 @@ cp template.hake $directory/template.hake
 
 #copy most current hakase and make it executable
 echo "copying most current version of hakase"
-cp hakase $install
-chmod +x $install
+
+cp hakase $directory/hakase
+chmod +x $directory/hakase
+cp hakase.config $directory/hakase.config
+
 
 #dangerous and weird and bad, commented out
 #add hakase to zshrc or bashrc
