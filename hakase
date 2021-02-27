@@ -1,23 +1,30 @@
-#!/bin/bash
-#hakase v0.3.0
+#!/bin/sh
+#hakase v0.5.0 Borderline Experimental Mode
+##lines with two hashes are drunken comments made to disparage my code
 
 #config
 config="$HOME/hakase/hakase.config"
+##really shouldn't be in such a grossly hardcoded place
+##etc would be correct but require root, but it's still gross to have it hardcoded
+
 if [[ -f $config ]] ; then
 	#source config from hakase.config, normally in the ~/hakase/ folder (as installed by helper)
 	. $config
+##oh yeah just source a random textfile, thats a good idea
 else
 	echo "I couldn't find your config file, I was looking for $config"
 	exit 10
+##what no default settings?  not very antifragile of you :smug-talib:
 fi
 
 #code
 first=$( echo $1 | tr '[:upper:]' '[:lower:]' )
 second=$2
-
+## i dont remember why i did this thing but it's very dumb
 case $first in
 	"")
 		$editor $editorSettings $working
+		## i find no issues with this line
 		;;
 	copy)
 		case $second in
@@ -27,24 +34,34 @@ case $first in
 			*)
 				cp $working $archive/$second.hake && echo "Current log archived as $second"
 				;;
+				## why the &&'ed echoes tho?  either have real conditional logic with error handling or make a newline heh make a newline when this line is obnoxiously long.  im hilarious
 		esac
 		;;
 	fresh)
+## this command is stupidly named, at the very least there should be another option that is less stupid
+### disregard that comment, that's some unix nonsense and should be disregarded.  JUST HAVE ONE CANONICAL OPTION!  LESS SHOULDN'T BE ALIASED TO MORE SINCE THOSE ARE **ANTONYMS**!!!!
 		second=$( echo $second | tr '[:upper:]' '[:lower:]' )
+		##there must be a more elegant way to do that
 		case $second in
 			"")
 				#still working on carryover
+				##thanks for telling us that you didnt implement features in a comment, that's great
 				cp $working $save
 				cp $template $working && echo "Loading '$template' over '$working'"
 				sed -i '' "1s/^/$dateFormat/" $working
 				;;			
 			nocarry)
+			## this LITERALLY does nothing since there's no carryover ever, why bother?
 				cp $working $save
 				cp $template $working && echo "Loading '$template' over '$working'"
 				sed -i '' "1s/^/$dateFormat/" $working
+				##this has to be a wizard string because I don't know what it does
+				### think it through buddy, -i is... interactive? (no clue there tbh), and then 1s is the first line, add in the $dateformat which is for some reason a BACK TICKED COMMAND as a variable and then working to cat the two together... maybe CAT might cat commands together?  who knows
 				;;
 			*)
 				echo "Sorry, fresh doesn't have that verb available"
+				## good job catching errors, kid
+				## so polite, too
 				;;
 		esac
 		;;
@@ -52,22 +69,23 @@ case $first in
 		case $second in
 			"")
 				echo "Sorry, you need to list the file you'd like to load"
+				## cute error
 				;;
 			*)
 				if [ -e $archive/$second ]
-				then
+				then ## why is this on a different line?
 					cp $archive/$second $working && echo "Loading '$archive/$second' over '$working'"
 				elif [ -e $archive/$second.hake ]
-				then
+				then ## again
 					cp $archive/$second.hake $working && echo "Loading '$archive/$second' over '$working'"
 				elif [ -e $second ]
-				then
+				then ## AGAIN
 					cp $second $working && echo "Loading '$second' over '$working'"
 				elif [ -e $second.hake ]
-				then
+				then ## CLEARLY I HAD A REASON, BUT I DON'T KNOW WHAT IS WAS
 					cp $second.hake $working && echo "Loading '$second.hake' over '$working'"	
 				elif [ ! -e $second ]
-				then
+				then ## maybe readability? but readability and 5 chained elifs dont really go together
 					echo "Sorry, I couldn't find $second, $second.hake, $archive/$second, or $archive/$second.hake"
 				else
 					echo "Sorry, that didn't work, and I don't know why"
@@ -77,9 +95,12 @@ case $first in
 		;;
 	rank)
 		echo "Sorry, rank isn't ready yet"
+		## THANK YOU FOR TELLING ME THIS FEATURE YOU ADVERTISED DOESN'T EXIST
 		;;
 	*)
 		echo "Sorry, I don't know how to do that verb"
+		## mad polite, very cute, but you forgot to return something other than 0
 		;;
 esac        
-
+## esac is the worst syntax ever.  where did that even come from?  thats less a 'code review' item and more of an interrogation of Ken Thompson or whoever birthed the abomination that became the modern *nix-like OS family
+## honestly '*nix like family' is overly generous.  it's just a bunch of idiot hacks codified into a standard.  POSIX is just calcified idiocy.  QUOTE ME ON THAT I DARE YOU
